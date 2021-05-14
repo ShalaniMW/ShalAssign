@@ -110,7 +110,7 @@ function onOrdDeleteComplete(response, status) {
 }
 
 // CLIENTMODEL=========================================================================
-function validateOrdForm() {
+/*function validateOrdForm() {
 	// Date
 	if ($("#date").val().trim() == "") {
 		return "Select a date.";
@@ -131,6 +131,6 @@ function validateOrdForm() {
 	
 
 	return true;
-}
+}*/
 
 

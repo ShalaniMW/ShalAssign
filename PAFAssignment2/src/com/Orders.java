@@ -1,16 +1,7 @@
 package com;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.TimeZone;
+import java.sql.*;
+
 
 public class Orders {
 	
@@ -27,7 +18,7 @@ public class Orders {
 		return con;
 	}
 	
-	public String ReadOrders() {
+	public String readOrders() {
 		
 		String output = "";
 		
@@ -38,8 +29,7 @@ public class Orders {
 					return "Error while connecting to the database for reading.";
 				}
 			
-				  output = "<table border='1'><tr><th>Order ID</th>"+
-					 		"<th>Customer ID</th> "+
+				  output = "<table border='1'><tr><th><th>Customer ID</th> "+
 					 		"<th>Customer Name</th> "+
 					 		"<th>Product ID</th>"
 					 		+"<th>Date</th>"+ "<th>Update</th><th>Remove</th></tr>";
@@ -65,6 +55,7 @@ public class Orders {
 				//output += "<tr>"
 				//+ "<td><input id='hidOrdIDUpdate'" + "name='hidOrdIDUpdate'" + "type='hidden' value='"
 				//+ OrdID + "'>" + OrdID + "</td>";
+				
 				output += "<tr><td>" + customerID + "</td>";
 				output += "<td>" + customerName + "</td>";
 				output += "<td>" + productID + "</td>";
@@ -73,11 +64,13 @@ public class Orders {
 				
 				// buttons
 				output += "<td><input name='btnUpdate' type='button' value='Update'"
-						+ "class='btnUpdate btn btn-secondary' data-order_id='" + order_id + "'></td>\"></td>" 
-						+ "<td><input name='btnRemove'"
-						+ "type='button' value='Remove'" + "class='btnRemove btn btn-danger'" + "data-OrdID='" + order_id
-						+ "'>" + "</td></tr>";
+						+ "class='btnUpdate btn btn-secondary' data-order_id='" + order_id + "'></td>" 
+						+ "<td><input name='btnRemove' type='button' value='Remove'" 
+						+ "class='btnRemove btn btn-danger' data-order_id='" + order_id + "'></td></tr>";
+						
 			}
+			
+			con.close();
 		
 		   output += "</table>";
 			  
@@ -116,19 +109,19 @@ public String insertOrder(String customerID,String customerName,String productID
 					pstmnt.execute();
 			con.close();
 		
-			String newOrders = ReadOrders();
+			String newOrders = readOrders();
 			output = "{\"status\":\"success\", \"data\": \"" + newOrders + "\"}";
 					
 			
 		}
 		catch(SQLException e){
 			output = "{\"status\":\"error\", \"data\":" + " \"Error while inserting the Order.\"}";
-			
+			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 
-public String updateOrder(String order_id,String customerID,String customerName,String productID,String date)  {
+public String updateOrder(String ID,String customerID,String customerName,String productID,String date)  {
 	String output = "";
 	
 	try{
@@ -145,17 +138,23 @@ public String updateOrder(String order_id,String customerID,String customerName,
 
 		PreparedStatement pstmnt = con.prepareStatement(query);
 		
+		pstmnt.setString(1, customerID);
+		pstmnt.setString(2, customerName);
+		pstmnt.setString(3, productID);
+		pstmnt.setString(4, date);
+		pstmnt.setInt(5, Integer.parseInt(ID));
+		
          pstmnt.execute();
          con.close();
-			String newOrders = ReadOrders();
-			
+         
+			String newOrders = readOrders();
 			output = "{\"status\":\"success\", \"data\": \"" + newOrders + "\"}";
 		
 		
 	}
 	catch(SQLException e){
 		output = "{\"status\":\"error\", \"data\":" + "\"Error while updating the Order.\"}";
-		
+		System.err.println(e.getMessage());
 	}
 	return output;
 	
@@ -178,10 +177,11 @@ public String deleteOrder(String order_id) {
 			 PreparedStatement pstmnt = con.prepareStatement(query);
 			 
 				pstmnt.setInt(1, Integer.parseInt(order_id));
-				pstmnt.execute();
 				
+				pstmnt.execute();
 				con.close();
-				String newOrders = ReadOrders();
+				
+				String newOrders = readOrders();
 				output = "{\"status\":\"success\", \"data\": \"" + newOrders + "\"}";
 				
 			

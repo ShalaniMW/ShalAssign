@@ -32,9 +32,9 @@ public class OrdersAPI extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String output = OrdObj.insertOrder( request.getParameter("cid"),
-				 request.getParameter("cname"),
-				 request.getParameter("pid"),
+		 String output = OrdObj.insertOrder( request.getParameter("customerID"),
+				 request.getParameter("customerName"),
+				 request.getParameter("productID"),
 				 request.getParameter("date"));
 				 
 		
@@ -51,10 +51,10 @@ public class OrdersAPI extends HttpServlet {
 		
 		
 		 String output = OrdObj.updateOrder( paras.get("hidOrdIDSave").toString(),
-				 paras.get("cid").toString(),
-				 paras.get("cname").toString(),
-				 paras.get("pid").toString(),
-				 paras.get("pid").toString());
+				 paras.get("customerID").toString(),
+				 paras.get("customerName").toString(),
+				 paras.get("productID").toString(),
+				 paras.get("date").toString());
 				
 		 
 		
@@ -66,7 +66,7 @@ public class OrdersAPI extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		 
-		 String output = OrdObj.deleteOrder(paras.get("OrdID").toString());
+		 String output = OrdObj.deleteOrder(paras.get("order_id").toString());
 		 response.getWriter().write(output);
 	}
 	
