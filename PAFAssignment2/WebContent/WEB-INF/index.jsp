@@ -19,14 +19,14 @@
 				<h1>Orders Management</h1>
 				<form id="formOrd" name="formOrd">
 					
-						<br>CustomerID: <input id="cid" name="cid" type="text"
+						<br>CustomerID: <input id="customerID" name="customerID" type="text"
 					class="form-control form-control-sm"> <br> 
 						
-						<br>Customer Name: <input id="cname" name="cname" type="text"
+						<br>Customer Name: <input id="customerName" name="customerName" type="text"
 					class="form-control form-control-sm"> <br> 
 						
 					 
-						<br>ProductID: <input id="pid" name="pid" type="text"
+						<br>ProductID: <input id="productID" name="productID" type="text"
 					class="form-control form-control-sm"> <br> 
 						
 						<br>Date: <input id="date" name="date" type="text"

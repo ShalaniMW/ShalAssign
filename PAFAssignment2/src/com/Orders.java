@@ -54,10 +54,10 @@ public class Orders {
 			
 			 
 			while(rs.next()) {
-				String OrdID = Integer.toString(rs.getInt("order_id"));
-				String cid = rs.getString("customerID");
-				String cname = rs.getString("customerName");
-				String pid = rs.getString("productID");
+				String order_id = Integer.toString(rs.getInt("order_id"));
+				String customerID = rs.getString("customerID");
+				String customerName = rs.getString("customerName");
+				String productID = rs.getString("productID");
 				String date = rs.getString("date");
 			
 				
@@ -65,17 +65,17 @@ public class Orders {
 				//output += "<tr>"
 				//+ "<td><input id='hidOrdIDUpdate'" + "name='hidOrdIDUpdate'" + "type='hidden' value='"
 				//+ OrdID + "'>" + OrdID + "</td>";
-				output += "<tr><td>" + cid + "</td>";
-				output += "<td>" + cname + "</td>";
-				output += "<td>" + pid + "</td>";
+				output += "<tr><td>" + customerID + "</td>";
+				output += "<td>" + customerName + "</td>";
+				output += "<td>" + productID + "</td>";
 				output += "<td>" + date + "</td>";
 				
 				
 				// buttons
 				output += "<td><input name='btnUpdate' type='button' value='Update'"
-						+ "class='btnUpdate btn btn-secondary' data-OrdID='" + OrdID + "'></td>\"></td>" 
+						+ "class='btnUpdate btn btn-secondary' data-order_id='" + order_id + "'></td>\"></td>" 
 						+ "<td><input name='btnRemove'"
-						+ "type='button' value='Remove'" + "class='btnRemove btn btn-danger'" + "data-OrdID='" + OrdID
+						+ "type='button' value='Remove'" + "class='btnRemove btn btn-danger'" + "data-OrdID='" + order_id
 						+ "'>" + "</td></tr>";
 			}
 		
@@ -91,7 +91,7 @@ public class Orders {
 		return output;
 	}
 	
-public String insertOrder(String cid,String cname,String pid,String date) {
+public String insertOrder(String customerID,String customerName,String productID,String date) {
 	
 	String output = "";
 		
@@ -104,13 +104,13 @@ public String insertOrder(String cid,String cname,String pid,String date) {
 			}
 			 
 					
-			String query = " insert into orders ('order_id','customer_id','customerName','productID','date') values (?, ?, ?, ?, ?)";
+			String query = " insert into orders ('order_id','customerID','customerName','productID','date') values (?, ?, ?, ?, ?)";
 			PreparedStatement pstmnt = con.prepareStatement(query);
 			
 					pstmnt.setInt(1, 0);
-			        pstmnt.setString(2,cid);
-			        pstmnt.setString(3, cname);
-					pstmnt.setString(4, pid);
+			        pstmnt.setString(2,customerID);
+			        pstmnt.setString(3, customerName);
+					pstmnt.setString(4, productID);
 					pstmnt.setString(5, date);
 					
 					pstmnt.execute();
@@ -128,7 +128,7 @@ public String insertOrder(String cid,String cname,String pid,String date) {
 		return output;
 	}
 
-public String updateOrder(String OrdID,String cid,String cname,String pid,String date)  {
+public String updateOrder(String order_id,String customerID,String customerName,String productID,String date)  {
 	String output = "";
 	
 	try{
@@ -141,7 +141,7 @@ public String updateOrder(String OrdID,String cid,String cname,String pid,String
 		
 		
 		
-			String query = "UPDATE orders SET cid=?, cname=?, pid=?, date=? WHERE order_id=?";
+			String query = "UPDATE orders SET customerID=?, customerName=?, productID=?, date=? WHERE order_id=?";
 
 		PreparedStatement pstmnt = con.prepareStatement(query);
 		
@@ -160,7 +160,7 @@ public String updateOrder(String OrdID,String cid,String cname,String pid,String
 	return output;
 	
 }
-public String deleteOrder(String OrdID) {
+public String deleteOrder(String order_id) {
 	
 	String output = "";
 	
@@ -177,7 +177,7 @@ public String deleteOrder(String OrdID) {
 				
 			 PreparedStatement pstmnt = con.prepareStatement(query);
 			 
-				pstmnt.setInt(1, Integer.parseInt(OrdID));
+				pstmnt.setInt(1, Integer.parseInt(order_id));
 				pstmnt.execute();
 				
 				con.close();
