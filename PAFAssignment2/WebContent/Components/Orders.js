@@ -67,7 +67,7 @@ function onOrdSaveComplete(response, status) {
 
 // UPDATE==========================================
 $(document).on("click",".btnUpdate",function(event) {
-			$("#hidOrdIDSave").val($(this).data("order_id"));
+			$("#hidOrdIDSave").val($(this).data("OrdID"));
 			$("#cid").val($(this).closest("tr").find('td:eq(0)').text());
 			$("#cname").val($(this).closest("tr").find('td:eq(1)').text());
 		    $("#pid").val($(this).closest("tr").find('td:eq(2)').text());
@@ -81,7 +81,7 @@ $(document).on("click", ".btnRemove", function(event) {
 	$.ajax({
 		url : "OrdersAPI",
 		type : "DELETE",
-		data : "OrdID=" + $(this).data("ordid"),
+		data : "OrdID=" + $(this).data("OrdID"),
 		dataType : "text",
 		complete : function(response, status) {
 			onOrdDeleteComplete(response.responseText, status);

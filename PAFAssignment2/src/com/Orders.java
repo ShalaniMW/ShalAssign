@@ -19,6 +19,8 @@ public class Orders {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/paf", "root", "shl199809");
+			
+			System.out.println("connected successfully");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}      
@@ -60,19 +62,20 @@ public class Orders {
 			
 				
 				// Add into the html table
-				output += "<tr>"
-				+ "<td><input id='hidOrdIDUpdate'" + "name='hidOrdIDUpdate'" + "type='hidden' value='"
-				+ OrdID + "'>" + OrdID + "</td>";
-				output += "<td>" + cid + "</td>";
+				//output += "<tr>"
+				//+ "<td><input id='hidOrdIDUpdate'" + "name='hidOrdIDUpdate'" + "type='hidden' value='"
+				//+ OrdID + "'>" + OrdID + "</td>";
+				output += "<tr><td>" + cid + "</td>";
 				output += "<td>" + cname + "</td>";
 				output += "<td>" + pid + "</td>";
 				output += "<td>" + date + "</td>";
 				
 				
 				// buttons
-				output += "<td><input name='btnUpdate'" + "type='button' value='Update'"
-						+ "class='btnUpdate btn btn-secondary'></td>" + "<td><input name='btnRemove'"
-						+ "type='button' value='Remove'" + "class='btnRemove btn btn-danger'" + "data-ordid='" + OrdID
+				output += "<td><input name='btnUpdate' type='button' value='Update'"
+						+ "class='btnUpdate btn btn-secondary' data-OrdID='" + OrdID + "'></td>\"></td>" 
+						+ "<td><input name='btnRemove'"
+						+ "type='button' value='Remove'" + "class='btnRemove btn btn-danger'" + "data-OrdID='" + OrdID
 						+ "'>" + "</td></tr>";
 			}
 		
